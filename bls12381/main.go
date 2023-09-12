@@ -54,8 +54,6 @@ func main() {
 		log.Panic("GenerateKeyPair err: ", err)
 	}
 
-	fmt.Println("GenerateKeyPair done")
-
 	msg := []byte("Sig Test")
 	hm, err := bls381.HashToG1(msg, g1Gen.Marshal())
 	if err != nil {
@@ -81,7 +79,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Setup done")
 	// groth16: Prove & Verify
 	proof, err := groth16.Prove(ccs, pk, witness)
 	if err != nil {

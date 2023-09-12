@@ -92,16 +92,30 @@ func main() {
 		log.Fatal(err)
 	}
 
+	// groth16 zkSNerrRK: Setup
+	pk, vk, err := groth16.Setup(ccs)
+	if err != nil {
+		log.Panicf("Failed to Setup err: %s", err)
+	}
 	// witness definition
-	witness, _ := frontend.NewWitness(&circuit, ecc.BW6_761.ScalarField())
+	witness, err := frontend.NewWitness(&circuit, ecc.BW6_761.ScalarField())
+	if err != nil {
+		log.Panicf("Failed to create witness err: %s", err)
+	}
 
-	publicWitness, _ := witness.Public()
-
-	// groth16 zkSNARK: Setup
-	pk, vk, _ := groth16.Setup(ccs)
+	publicWitness, err := witness.Public()
+	if err != nil {
+		log.Panicf("Failed to create witness Public err: %s", err)
+	}
 
 	// groth16: Prove & Verify
-	proof, _ := groth16.Prove(ccs, pk, witness)
-	groth16.Verify(proof, vk, publicWitness)
+	proof, err := groth16.Prove(ccs, pk, witness)
+	if err != nil {
+		log.Panicf("Prove err: %s", err)
+	}
 
+	err = groth16.Verify(proof, vk, publicWitness)
+	if err != nil {
+		log.Panicf("Verify err: %s", err)
+	}
 }
