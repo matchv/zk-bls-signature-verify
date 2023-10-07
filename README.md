@@ -73,6 +73,9 @@ go mod download
 │   └── signle   // Generate data through gnark-crypto to implement signature verification of gnark bls12377
 │       ├── main.go
 │       └── utils.go
+│   └── aggregate   // Generate data through gnark-crypto to aggregate signature verification of gnark bls12377
+│       ├── main.go
+│       └── utils.go
 ├── bls12381  // Generate data through gnark-crypto to implement signature verification of gnark bls12381
 │   ├── main.go
 │   └── utils.go
@@ -87,7 +90,7 @@ cd agrgrgate
 go run main.go
 
 # gnark bls12377 verify
-cd bls12377/(demo|single|multiple)
+cd bls12377/(demo|single|multiple|aggregate)
 go run main.go
 
 # gnark bls12381 verify
