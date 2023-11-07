@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
+	"log"
+
 	"github.com/consensys/gnark-crypto/ecc"
 	bn254_ecc "github.com/consensys/gnark-crypto/ecc/bn254"
 	"github.com/consensys/gnark/backend/groth16"
 	"github.com/consensys/gnark/frontend"
 	"github.com/consensys/gnark/frontend/cs/r1cs"
 	bn254 "github.com/consensys/gnark/std/algebra/emulated/sw_bn254"
-	"log"
 )
 
 const (
@@ -35,13 +36,13 @@ func (circuit *Circuit) Define(api frontend.API) error {
 	pl, _ := pair.Pair([]*bn254.G1Affine{&circuit.Sig}, []*bn254.G2Affine{&circuit.G2})
 
 	var hm []*bn254.G1Affine
-	for _, v := range circuit.Hm {
-		hm = append(hm, &v)
+	for k, _ := range circuit.Hm {
+		hm = append(hm, &circuit.Hm[k])
 	}
 
 	var pk []*bn254.G2Affine
-	for _, v := range circuit.Pk {
-		pk = append(pk, &v)
+	for k, _ := range circuit.Pk {
+		pk = append(pk, &circuit.Pk[k])
 	}
 
 	pr, _ := pair.Pair(hm, pk)

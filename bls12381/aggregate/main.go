@@ -2,17 +2,18 @@ package main
 
 import (
 	"fmt"
+	"log"
+
 	"github.com/consensys/gnark-crypto/ecc"
 	bls12381_ecc "github.com/consensys/gnark-crypto/ecc/bls12-381"
 	"github.com/consensys/gnark/backend/groth16"
 	"github.com/consensys/gnark/frontend"
 	"github.com/consensys/gnark/frontend/cs/r1cs"
 	bls12381 "github.com/consensys/gnark/std/algebra/emulated/sw_bls12381"
-	"log"
 )
 
 const (
-	SignatureNum = 2
+	SignatureNum = 16
 )
 
 // Circuit Boneh-Lynn-Shacham (BLS) signature verification
@@ -35,13 +36,13 @@ func (circuit *Circuit) Define(api frontend.API) error {
 	pl, _ := pair.Pair([]*bls12381.G1Affine{&circuit.Sig}, []*bls12381.G2Affine{&circuit.G2})
 
 	hm := []*bls12381.G1Affine{}
-	for _, v := range circuit.Hm {
-		hm = append(hm, &v)
+	for k, _ := range circuit.Hm {
+		hm = append(hm, &circuit.Hm[k])
 	}
 
 	pk := []*bls12381.G2Affine{}
-	for _, v := range circuit.Pk {
-		pk = append(pk, &v)
+	for k, _ := range circuit.Pk {
+		pk = append(pk, &circuit.Pk[k])
 	}
 	pr, _ := pair.Pair(hm, pk)
 	pair.AssertIsEqual(pl, pr)
