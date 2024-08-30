@@ -1,9 +1,26 @@
-# Gnark ZK-SNARK library 
+# ZK Circuit to Verify BLS Aggregated Signatures  
 
-###### tags: `Gnark`
+###### tags: `BLS12-377`, `BLS12-381`, `BN254`, `ZK`,`Gnark`, `Groth16`
 
-> gnark is a fast zk-SNARK library that offers a high-level API to design circuits. The library is open source and developed under the Apache 2.0 license
+> The program is written in Go with Gnark framework with Groth16, it could be done with Plonk too but Groth16 is chosen for the gas saving when we eventually verify the proof with a EVM contract.
 
+> With Groth16, trusted setup is necessary whenever you re-compile the program
+
+> Currently the program support: (go to each subfolder to compile the corresponding circuit)
+
+> Verifying multiple BLS12-377 signatures
+
+> Verifying multiple BLS12-381 signatures
+
+> Verifying multiple BN254 signatures
+
+> Gnark is under active development and it is still lacking features, but it does allow you to write high level ZKP program which saves tons of time.
+
+> Gnark features missing (at the time of coding):
+
+> Folding BLS12-377 proof to BN254 proof
+
+> Auto generating Solidity verifier contract for Groth16 proof
 
 ## 1. Clone the code
 
